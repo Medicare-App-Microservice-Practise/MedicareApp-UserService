@@ -1,6 +1,5 @@
 package com.medicare.admin.entity;
 
-
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -17,28 +16,40 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="tb_admin")
+@Table(name="tb_customer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admin {
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(nullable=false)
-	private Integer admin_id;
+	private Integer cust_id;
 	
 	@Column(nullable=false)
-	private String admin_name;
+	private String cust_name;
 	
 	@Column(nullable=false)
-	private String admin_email;
+	private String cust_email;
 	
 	@Column(nullable=false)
-	private String admin_password;
+	private String cust_mobile;
 	
 	@Column(nullable=false)
-	private String admin_mobile;
+	private String cust_address;
+	
+	@Column(nullable=false)
+	private String cust_state;
+	
+	@Column(nullable=false)
+	private String cust_city;
+	
+	@Column(nullable=false)
+	private String cust_postcode;
+	
+	@Column(nullable=false)
+	private String cust_companyname;
 	
 	@Column(nullable=false)
 	private Timestamp created_timestamp;

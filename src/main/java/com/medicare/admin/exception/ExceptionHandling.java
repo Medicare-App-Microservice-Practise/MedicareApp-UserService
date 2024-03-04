@@ -10,12 +10,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.medicare.admin.exception.customException.CustomErrorException;
 import com.medicare.admin.exception.customException.NotFoundException;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @RestControllerAdvice
 public class ExceptionHandling {
+	
+	@ExceptionHandler(CustomErrorException.class)
+	public ResponseEntity<Object> handleCustomError (CustomErrorException ex)
+	{
+		Map<String,Object> errorResponse = new HashMap<>();
+		
+		errorResponse.put("result", "fail");
+		errorResponse.put("message", ex.getMessage());
+		
+		return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<Object> illegalArgumentException (IllegalArgumentException ex)

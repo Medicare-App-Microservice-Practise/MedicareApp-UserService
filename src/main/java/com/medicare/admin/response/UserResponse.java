@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdminResponse {
+public class UserResponse {
 
 	public ResponseEntity<Object> responseWithoutData(String message, HttpStatus httpStatus)
 	{

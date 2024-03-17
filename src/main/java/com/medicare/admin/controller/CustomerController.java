@@ -1,12 +1,14 @@
 package com.medicare.admin.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,6 +27,7 @@ import com.medicare.admin.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@CrossOrigin
 public class CustomerController {
 	
 	@Autowired
@@ -32,6 +35,8 @@ public class CustomerController {
 	
 	@Autowired
 	UserResponse response;
+	
+	private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
 
 	@PostMapping("")
 	public ResponseEntity<Object> addCustomer (@RequestBody @Valid CustRequestDto custRequestDto) throws CustomErrorException
@@ -41,8 +46,10 @@ public class CustomerController {
 	}
 	
 	@PatchMapping("/{id}")
-	public ResponseEntity<Object> updateCustomer(@PathVariable int id, CustRequestDto custRequestDto) throws NotFoundException, CustomErrorException
+	public ResponseEntity<Object> updateCustomer(@PathVariable int id, @Valid @RequestBody CustRequestDto custRequestDto) throws NotFoundException, CustomErrorException
 	{
+		logger.info("value is "+id);
+		logger.info(custRequestDto.toString());
 		service.updateCustomer(id, custRequestDto);
 		return response.responseWithoutData("success", HttpStatus.OK);
 	}
